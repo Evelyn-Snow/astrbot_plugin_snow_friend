@@ -1,0 +1,9 @@
+name: astrbot_plugin_snow_friend
+display_name: Bot 好友申请
+desc: 自动处理普通和可疑好友申请；自动判定没通过的把对方信息发给主人，回复「同意 QQ号」或「拒绝 QQ号」后再执行
+help: 无需指令；符合条件自动通过，其余私聊发给主人裁决。主人回「同意 QQ号」或「拒绝 QQ号」
+version: v0.2.0
+repo: https://github.com/Evelyn-Snow/astrbot_plugin_snow_friend
+author: Evelyn-Snow
+support_platforms:
+  - aiocqhttp
