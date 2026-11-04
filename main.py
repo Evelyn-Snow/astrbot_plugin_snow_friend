@@ -328,10 +328,16 @@ class SnowFriend(Star):
         return False
 
     @filter.event_message_type(
-        filter.EventMessageType.PRIVATE_MESSAGE, priority=(1 << 31) - 2
+        filter.EventMessageType.PRIVATE_MESSAGE, priority=(1 << 31) - 1
     )
     async def on_owner_review(self, event: AstrMessageEvent):
-        """主人回复「同意/拒绝 [QQ号]」裁决挂起的好友申请。"""
+        """主人回复「同意/拒绝 [QQ号]」裁决挂起的好友申请。
+
+        优先级高于 sleep 守卫，夜间也能处理管理员裁决；消息仍会先经过
+        snow_burst 合流，但重派发后本 handler 会先于 sleep 执行。
+        """
+        if not bool(self.conf.get("enabled", True)):
+            return
         parsed = parse_owner_reply(str(event.message_str or ""))
         if not parsed:
             return
